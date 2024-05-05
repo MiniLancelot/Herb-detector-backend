@@ -11,6 +11,8 @@ import requests
 app = Flask(__name__)
 CORS(app)
 
+dt = Detect()
+
 @app.route('/detect', methods=['POST'])
 def predict():
     file = request.files['image']
@@ -18,7 +20,7 @@ def predict():
     return jsonify({"plant_detected": plant_detected})
 
 if __name__ == '__main__':
-    dt = Detect()
+    # dt = Detect()
     # app.run(port=5000, debug=True)
     app.run(host='0.0.0.0', debug=True)
 

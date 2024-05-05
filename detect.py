@@ -9,7 +9,7 @@ from io import BytesIO
 class Detect:
     def __init__(self):
         temp = pathlib.PosixPath
-        pathlib.PosixPath = pathlib.WindowsPath
+        pathlib.PosixPath = pathlib.Path
         torch.hub._validate_not_a_forked_repo = lambda a, b, c: True
         self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True)
         pathlib.PosixPath = temp

@@ -43,12 +43,15 @@ if __name__ == "__main__":
 
     # Kết nối tới server
     client = DetectClient()
-    client.connect('http://localhost:3000')
+    # client.connect('localhosthttp://:3000')
+    client.connect('https://cloud-detect.onrender.com')
 
     client.on('image', client.on_image)
 
     # Bắt đầu lắng nghe sự kiện từ server
     client.wait()
+
+
 
 
 

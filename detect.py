@@ -87,15 +87,17 @@ class Detect:
         plant_labels_detected = {"plants": {}}
 
         for *box, conf, cls in results.xyxy[0]:
-            label = f"{labels[int(cls)]}: {conf:.2f}"
+            if conf > 0.5:
+                label = f"{labels[int(cls)]}: {conf:.2f}"
 
-            cv2.rectangle(image, (int(box[0]), int(box[1])), (int(box[2]), int(box[3])), (255, 0, 0), 2)
-            width = box[2] - box[0]
-            font_scale = get_optimal_font_scale(label, width)
-            cv2.putText(image, label, (int(box[0]), int(box[1] - 10)), cv2.FONT_HERSHEY_SIMPLEX, font_scale,
-                        (0, 0, 255), 2)
-            plant_labels_detected["plants"][labels[int(cls)]] = plant_labels_detected["plants"].get(labels[int(cls)],
-                                                                                                    0) + 1
+                cv2.rectangle(image, (int(box[0]), int(box[1])), (int(box[2]), int(box[3])), (255, 0, 0), 2)
+                width = box[2] - box[0]
+                font_scale = get_optimal_font_scale(label, width)
+                cv2.putText(image, label, (int(box[0]), int(box[1] - 10)), cv2.FONT_HERSHEY_SIMPLEX, font_scale,
+                            (0, 0, 255), 2)
+                plant_labels_detected["plants"][labels[int(cls)]] = plant_labels_detected["plants"].get(
+                    labels[int(cls)],
+                    0) + 1
 
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         pil_img = Image.fromarray(image)
